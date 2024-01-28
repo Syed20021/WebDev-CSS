@@ -1,48 +1,60 @@
 console.log("formValidation.js loaded");
 
-/**
- * Validate the email address
- * @param {string} email    the email address to validate
- * @returns {boolean}        to indicate if the email is valid
- */
 function validateEmailAddressSimple(emailString) {
-    console.log('in ValidateEmailAddress');
-
-    // check for @ sign
+    console.log('Validating Email Address');
     let atSymbol = emailString.indexOf('@');
-    if(atSymbol < 1) return false;
+    if (atSymbol < 1) return false;
 
     let dot = emailString.indexOf('.');
-    if(dot <= atSymbol + 2) return false;
-
-    // check that the dot is not at the end
+    if (dot <= atSymbol + 2) return false;
     if (dot === emailString.length - 1) return false;
 
     return true;
 }
 
-/*
- * Validate the email address
-* @param {string} emailString
-* @returns {boolean}    validation result
-*/
 function validateEmailAddressRegex(emailString) {
-    //the regular expression to validate the email address for string+string|number bewten 2-20 characters
-    // note the / and / at the beginning and end of the expression
     var emailRegex = /^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$/;
-
-    //return true if the email address is valid - how to use regex
-	return !!emailString && typeof emailString === 'string'
-		&& emailString.match(emailRegex);
+    return !!emailString && typeof emailString === 'string' && emailString.match(emailRegex);
 }
 
+function isValidUsername(username) {
+    console.log('Validating Username');
+    var usernameRegex = /^[a-zA-Z0-9_-]{3,16}$/;
 
-//TODO:
-// Make all fields required (HTML)
-// Add a pattern attribute in the telephone element (HTML)
-// Ensure the password is redacted into dots on screen when typed in (HTML)
-// Create a function that knows if the username is valid (feel free to grab some RegEx from the Interwebs - cite source and test it!)
-// If it is not valid, be sure to update the #generalError <p></p> with a good error message and some highlighting (red background, maybe?)
-// Validate the username when the form is submitted
-// Clear any additional error message and highlighting when the form is reset
-// COMMENT EVERYTHING :D
+    if (!username.match(usernameRegex)) {
+        updateError('Invalid username. Please use 3-16 characters, alphanumeric with optional _ or -.');
+        return false;
+    }
+
+    clearError();
+    return true;
+}
+
+function updateError(message) {
+    let errorElement = document.getElementById('generalError');
+    errorElement.innerHTML = message;
+    errorElement.classList.add('error');
+}
+
+function clearError() {
+    let errorElement = document.getElementById('generalError');
+    errorElement.innerHTML = '';
+    errorElement.classList.remove('error');
+}
+
+function validateForm() {
+    let email = document.getElementById('email').value;
+    if (!validateEmailAddressSimple(email)) {
+        updateError('Invalid Email Address.');
+        return false;
+    }
+
+    let username = document.getElementById('username').value;
+    return isValidUsername(username);
+}
+
+function resetForm() {
+    clearError();
+}
+
+console.log("Form validation setup complete.");
