@@ -1,0 +1,17 @@
+{
+  "name": "mvc-app",
+  "version": "1.0.0",
+  "description": "MVC app with Express and Pug",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "pug": "^3.0.0"
+  }
+}
