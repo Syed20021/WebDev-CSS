@@ -1,0 +1,52 @@
+//- Kyan M, Syed Hassnat A
+//- Lab 4
+extends ../layouts/main
+
+block content
+  h1 Edit Animal Entry
+  if errorMessage
+    .alert.alert-danger(role='alert')= errorMessage
+  .edit-animal-form
+    form(method='POST', action='/update-animal/' + animal._id)
+      .form-group
+        label(for='zoo') Zoo
+        input#zoo.form-control(type='text', name='zoo', value=animal.Zoo, required)
+      
+      .form-group
+        label(for='scientificName') Scientific Name
+        input#scientificName.form-control(type='text', name='scientificName', value=animal.scientificName, required)
+      
+      .form-group
+        label(for='commonName') Common Name
+        input#commonName.form-control(type='text', name='commonName', value=animal.commonName, required)
+      
+      .form-group
+        label(for='givenName') Given Name
+        input#givenName.form-control(type='text', name='givenName', value=animal.givenName, required)
+      
+      .form-group
+        label(for='gender') Gender
+        select#gender.form-control(name='gender')
+          option(value='Male' selected=(animal.Gender === 'Male')) Male
+          option(value='Female' selected=(animal.Gender === 'Female')) Female
+      
+      .form-group
+        label(for='dateOfBirth') Date of Birth
+        input#dateOfBirth.form-control(type='date', name='dateOfBirth', value=animal.DOB.toISOString().split('T')[0], required)
+      
+      .form-group
+        label(for='age') Age
+        input#age.form-control(type='number', name='age', value=animal.Age, required)
+      
+      .form-group
+        label(for='isTransportable') Is Transportable
+        select#isTransportable.form-control(name='isTransportable')
+          option(value='true' selected=animal.isTransportable) Available
+          option(value='false' selected=!animal.isTransportable) Unavailable
+      
+      button.btn.btn-primary(type='submit') Update Animal Record
+
+  .delete-animal-form.mt-3
+    form(method='POST', action='/delete-animal/' + animal._id)
+      input(type='hidden', name='_method', value='DELETE')
+      button.btn.btn-danger(type='submit') Delete Record

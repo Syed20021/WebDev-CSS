@@ -1,0 +1,29 @@
+//- Kyan M, Syed Hassnat A
+//- Lab 4
+extends ../layouts/main
+
+block content
+  h1 Animal List
+  each animal in animals
+    .card.mb-3
+      .card-body
+        h5.card-title= animal.givenName
+        hr
+        dl.row
+          dt.col-sm-3 Zoo
+          dd.col-sm-9= animal.Zoo
+          dt.col-sm-3 Scientific Name
+          dd.col-sm-9= animal.scientificName
+          dt.col-sm-3 Common Name
+          dd.col-sm-9= animal.commonName
+          dt.col-sm-3 Given Name
+          dd.col-sm-9= animal.givenName
+          dt.col-sm-3 Gender
+          dd.col-sm-9= animal.Gender
+          dt.col-sm-3 Date of Birth
+          dd.col-sm-9= animal.DOB.toDateString()
+          dt.col-sm-3 Age
+          dd.col-sm-9= animal.Age
+          dt.col-sm-3 Transportability
+          dd.col-sm-9= animal.isTransportable ? 'AVAILABLE' : 'UNAVAILABLE'
+        a.btn.btn-primary(href=`/edit-animal/${animal._id}`) Edit Animal Details
